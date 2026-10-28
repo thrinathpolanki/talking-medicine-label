@@ -1,6 +1,6 @@
 flowchart LR
   USBC["USB-C 5 V charger"] -->|"IN+ / IN-"| TP
-  BAT["18650 Li-ion cell"] <-->|"B+ / B-"| TP["TP4056 Type-C charger<br/>with DW01A protection"]
+  BAT["Li-ion cell<br/>(18650 per BOM, 21700 in photo)"] <-->|"B+ / B-"| TP["TP4056 Type-C charger<br/>with DW01A protection"]
   TP -->|"VCC via 1k"| LEDS["Red LED on CHRG pin 7<br/>Green LED on STDBY pin 6"]
   TP -->|"OUT+ protected"| SW{{"Main ON/OFF switch<br/>positive line only"}}
   SW --> MT["MT3608 boost converter<br/>adjusted to 5.0 V"]
