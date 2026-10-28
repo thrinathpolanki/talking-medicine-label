@@ -6,7 +6,7 @@
 
 Community Service Project (CSP) - IoT / assistive technology.
 
-![ESP32](https://img.shields.io/badge/MCU-ESP32-0B2545) ![NFC](https://img.shields.io/badge/NFC-PN532-13A89E) ![Audio](https://img.shields.io/badge/Audio-DFPlayer%20Mini-0B2545) ![Firmware](https://img.shields.io/badge/Firmware-Arduino%20C%2B%2B-13A89E) ![Hardware tested](https://img.shields.io/badge/hardware%20tested-not%20yet-lightgrey) ![License](https://img.shields.io/badge/license-MIT-0B2545)
+![ESP32](https://img.shields.io/badge/MCU-ESP32-0B2545) ![NFC](https://img.shields.io/badge/NFC-PN532-13A89E) ![Audio](https://img.shields.io/badge/Audio-DFPlayer%20Mini-0B2545) ![Firmware](https://img.shields.io/badge/Firmware-Arduino%20C%2B%2B-13A89E) ![Hardware tested](https://img.shields.io/badge/hardware%20tested-Working-0B2545) ![License](https://img.shields.io/badge/license-MIT-0B2545)
 
 ## Table of contents
 [Project status](#project-status) - [What is this project](#what-is-this-project) - [Who benefits](#who-benefits) - [Key features](#key-features) - [System architecture](#system-architecture) - [Components](#components) - [Connections](#hardware-connection-table) - [Wiring diagram](#wiring-diagram) - [Source code](#source-code) - [NFC tag data format](#nfc-tag-data-format) - [Power and charging](#power-management-and-charging) - [Assembly](#assembly) - [Testing and troubleshooting](#testing-and-troubleshooting) - [Limitations](#limitations-and-future-work) - [Academic documentation](#academic-project-documentation) - [Quick start](#installation-and-quick-start) - [Credits and licence](#credits-license-and-contributions)
