@@ -38,7 +38,7 @@ o.append('<title>Talking Medicine Label - schematic-style wiring diagram</title>
 o.append(f'<rect width="{W}" height="{H}" fill="#fff"/>')
 txt(30,28,"Talking Medicine Label - wiring diagram (schematic style; pin positions are NOT the physical board layout)",15,bold=True,col=NAVY)
 # battery + TP4056
-box(30,60,190,70,"18650 Li-ion","single cell"); pin(70,130,"+","b"); pin(150,130,"-","b")
+box(30,60,190,70,"Li-ion cell","18650 / 21700"); pin(70,130,"+","b"); pin(150,130,"-","b")
 box(30,190,190,150,"TP4056 Type-C","DW01A protected",dy=28); pin(70,190,"B+","t"); pin(150,190,"B-","t")
 wire([(70,130),(70,190)],C["vbat"]); wire([(150,130),(150,190)],C["gnd"])
 pin(220,230,"OUT+","r"); pin(220,265,"OUT-","r")
