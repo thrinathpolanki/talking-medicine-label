@@ -72,7 +72,7 @@ save("signal-flow.svg",s,1200,360,"Signal flow animation","Animated flow from NF
 
 # ---------- 3. power flow ----------
 s=text(600,30,"Power flow",20,NAVY,bold=True)
-s+=box(30,150,130,80,"18650","Li-ion cell")
+s+=box(30,150,130,80,"Li-ion cell","18650 / 21700")
 s+=box(210,150,150,80,"TP4056","Type-C + protection")
 s+=box(410,150,110,80,"Switch","COM to OUT")
 s+=box(570,150,150,80,"MT3608","boost to 5.0 V")
