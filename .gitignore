@@ -1,0 +1,8 @@
+firmware/talking-medicine-label/config.h
+*.bin
+*.elf
+build/
+.vscode/
+.DS_Store
+._*
+__pycache__/
