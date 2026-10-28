@@ -2,6 +2,10 @@
 
 <p align="center"><img src="../images/animations/audio-chain.svg" alt="Animated audio path from microSD through DFPlayer Mini and PAM8403 to left and right speakers" width="100%"></p>
 
+![DFPlayer Mini MP3-TF-16P V3.0, two views](../images/components/dfplayer-mini-mp3-tf-16p.png)
+
+*DFPlayer Mini photographs supplied by the project author (licence unverified; see `docs/references.md`).*
+
 
 ```mermaid
 flowchart TD
