@@ -1,0 +1,19 @@
+flowchart LR
+  TAG["NFC tag on medicine container<br/>NDEF text: TML:007, lang en"]
+  PN["PN532 NFC reader<br/>I2C address 0x24"]
+  ESP["ESP32 controller<br/>Arduino firmware"]
+  BTN["3 push buttons<br/>GPIO26 vol up, GPIO25 vol down<br/>GPIO27 language"]
+  DFP["DFPlayer Mini<br/>+ microSD audio"]
+  AMP["PAM8403 stereo amplifier"]
+  SPKL["Speaker L"]
+  SPKR["Speaker R"]
+  USER(["User hears the<br/>medicine instructions"])
+  TAG -->|"13.56 MHz RF"| PN
+  PN -->|"I2C: SDA GPIO21, SCL GPIO22"| ESP
+  BTN -->|"active low inputs"| ESP
+  ESP -->|"UART2: GPIO16 RX, GPIO17 TX<br/>play folder and track, volume"| DFP
+  DFP -->|"DAC_L and DAC_R analog audio"| AMP
+  AMP -->|"L+ and L- (BTL)"| SPKL
+  AMP -->|"R+ and R- (BTL)"| SPKR
+  SPKL --> USER
+  SPKR --> USER
