@@ -1,0 +1,28 @@
+flowchart TD
+  A(["Power ON"]) --> B["Wait for DFPlayer boot"]
+  B --> C{"PN532 and DFPlayer<br/>initialised?"}
+  C -->|"No"| D["Blink error pattern<br/>and retry every 5 s"]
+  D --> C
+  C -->|"Yes"| E["Speak: device ready"]
+  E --> F["Poll for NFC tag"]
+  F --> G{"Tag in range?"}
+  G -->|"No"| H["Release latch after<br/>about 1 s without tag"]
+  H --> F
+  G -->|"Yes, same tag still latched"| F
+  G -->|"Yes, new tag"| I["Read NTAG user memory"]
+  I --> J{"Read OK?"}
+  J -->|"No"| K["Speak: hold tag steady"]
+  K --> F
+  J -->|"Yes"| L{"Valid TML record<br/>and known language?"}
+  L -->|"No"| M["Speak: tag not recognised"]
+  M --> F
+  L -->|"Yes"| N["Play folder / track mp3"]
+  N --> O{"Audio file found?"}
+  O -->|"No"| P["Speak: audio missing"]
+  O -->|"Yes"| Q["User hears instructions"]
+  P --> F
+  Q --> F
+  BT(["Button press at any time"]) --> BQ{"Which button?"}
+  BQ -->|"GPIO26"| BU["Volume up, limited to max"]
+  BQ -->|"GPIO25"| BD["Volume down, limited to min"]
+  BQ -->|"GPIO27"| BL["Next language and spoken confirmation"]
