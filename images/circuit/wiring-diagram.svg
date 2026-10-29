@@ -57,12 +57,16 @@
 <text x="850" y="104" text-anchor="start" font-size="12" fill="#fff">GND</text>
 <polyline points="840,100 815,100 815,420 855,420" fill="none" stroke="#222222" stroke-width="3" stroke-linejoin="round"/>
 <circle cx="855" cy="420" r="4.5" fill="#222222"/>
-<circle cx="900" cy="180" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
-<text x="900" y="171" text-anchor="middle" font-size="12" fill="#fff">VCC 3.3V</text>
-<circle cx="1000" cy="180" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
-<text x="1000" y="171" text-anchor="middle" font-size="12" fill="#fff">SDA</text>
+<circle cx="880" cy="180" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
+<text x="880" y="171" text-anchor="middle" font-size="12" fill="#fff">VCC 3.3V</text>
+<circle cx="960" cy="180" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
+<text x="960" y="171" text-anchor="middle" font-size="12" fill="#fff">SDA</text>
+<circle cx="1030" cy="180" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
+<text x="1030" y="171" text-anchor="middle" font-size="12" fill="#fff">SCL</text>
 <circle cx="1100" cy="180" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
-<text x="1100" y="171" text-anchor="middle" font-size="12" fill="#fff">SCL</text>
+<text x="1100" y="171" text-anchor="middle" font-size="12" fill="#fff">RSTO</text>
+<circle cx="1165" cy="180" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
+<text x="1165" y="171" text-anchor="middle" font-size="12" fill="#fff">IRQ</text>
 <rect x="840" y="250" width="360" height="140" rx="8" fill="#0B2545"/>
 <text x="1020.0" y="318.0" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">ESP32 NodeMCU 30-pin</text>
 <text x="1020.0" y="336.0" text-anchor="middle" font-size="12" fill="#bfe9e5">CP2102, powered via VIN</text>
@@ -74,15 +78,21 @@
 <text x="1190" y="304" text-anchor="end" font-size="12" fill="#fff">VIN</text>
 <polyline points="1200,300 1270,300" fill="none" stroke="#C0392B" stroke-width="3" stroke-linejoin="round"/>
 <circle cx="1270" cy="300" r="4.5" fill="#C0392B"/>
-<circle cx="900" cy="250" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
-<text x="900" y="269" text-anchor="middle" font-size="12" fill="#fff">3V3</text>
-<circle cx="1000" cy="250" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
-<text x="1000" y="269" text-anchor="middle" font-size="12" fill="#fff">GPIO21</text>
+<circle cx="880" cy="250" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
+<text x="880" y="269" text-anchor="middle" font-size="12" fill="#fff">3V3</text>
+<circle cx="960" cy="250" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
+<text x="960" y="269" text-anchor="middle" font-size="12" fill="#fff">GPIO21</text>
+<circle cx="1030" cy="250" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
+<text x="1030" y="269" text-anchor="middle" font-size="12" fill="#fff">GPIO22</text>
 <circle cx="1100" cy="250" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
-<text x="1100" y="269" text-anchor="middle" font-size="12" fill="#fff">GPIO22</text>
-<polyline points="900,180 900,250" fill="none" stroke="#D81B60" stroke-width="3" stroke-linejoin="round"/>
-<polyline points="1000,180 1000,250" fill="none" stroke="#1E88E5" stroke-width="3" stroke-linejoin="round"/>
-<polyline points="1100,180 1100,250" fill="none" stroke="#00897B" stroke-width="3" stroke-linejoin="round"/>
+<text x="1100" y="269" text-anchor="middle" font-size="12" fill="#fff">GPIO5</text>
+<circle cx="1165" cy="250" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
+<text x="1165" y="269" text-anchor="middle" font-size="12" fill="#fff">GPIO4</text>
+<polyline points="880,180 880,250" fill="none" stroke="#D81B60" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="960,180 960,250" fill="none" stroke="#1E88E5" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="1030,180 1030,250" fill="none" stroke="#00897B" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="1100,180 1100,250" fill="none" stroke="#F9A825" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="1165,180 1165,250" fill="none" stroke="#EF6C00" stroke-width="3" stroke-linejoin="round"/>
 <circle cx="855" cy="390" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
 <text x="855" y="381" text-anchor="middle" font-size="12" fill="#fff">GND*</text>
 <circle cx="925" cy="390" r="5" fill="#fff" stroke="#13A89E" stroke-width="2"/>
@@ -232,26 +242,31 @@
 <text x="80" y="678" font-size="12" text-anchor="start" fill="#222">I2C SDA</text>
 <polyline points="30,695 70,695" fill="none" stroke="#00897B" stroke-width="3" stroke-linejoin="round"/>
 <text x="80" y="699" font-size="12" text-anchor="start" fill="#222">I2C SCL</text>
-<polyline points="30,716 70,716" fill="none" stroke="#2E7D32" stroke-width="3" stroke-linejoin="round"/>
-<text x="80" y="720" font-size="12" text-anchor="start" fill="#222">UART: DFPlayer TX to ESP32 GPIO16</text>
-<polyline points="30,737 70,737" fill="none" stroke="#7CB342" stroke-width="3" stroke-linejoin="round"/>
-<text x="80" y="741" font-size="12" text-anchor="start" fill="#222">UART: ESP32 GPIO17 to DFPlayer RX</text>
-<polyline points="30,758 70,758" fill="none" stroke="#7B1FA2" stroke-width="3" stroke-linejoin="round"/>
-<text x="80" y="762" font-size="12" text-anchor="start" fill="#222">Analog audio DAC_L to PAM8403 L</text>
-<polyline points="30,779 70,779" fill="none" stroke="#AB47BC" stroke-width="3" stroke-linejoin="round"/>
-<text x="80" y="783" font-size="12" text-anchor="start" fill="#222">Analog audio DAC_R to PAM8403 R</text>
-<polyline points="30,800 70,800" fill="none" stroke="#607D8B" stroke-width="3" stroke-linejoin="round"/>
-<text x="80" y="804" font-size="12" text-anchor="start" fill="#222">Speaker pairs (differential)</text>
-<polyline points="30,821 70,821" fill="none" stroke="#6D4C41" stroke-width="3" stroke-linejoin="round"/>
-<text x="80" y="825" font-size="12" text-anchor="start" fill="#222">Push buttons (to GND, internal pull-up)</text>
-<text x="30" y="870" font-size="14" text-anchor="start" fill="#0B2545" font-weight="700">Notes and safety</text>
-<text x="30" y="892" font-size="12" text-anchor="start" fill="#222">* GND* = ESP32 GND pin beside 3V3: PN532, DFPlayer pin 7 and the 3 buttons.</text>
-<text x="30" y="911" font-size="12" text-anchor="start" fill="#222">- DFPlayer pin 10 (GND) goes to the PAM8403 GND between L and R.</text>
-<text x="30" y="930" font-size="12" text-anchor="start" fill="#222">- Measure MT3608 output = 5.0 V BEFORE connecting any module.</text>
-<text x="30" y="949" font-size="12" text-anchor="start" fill="#222">- Switch: TP4056 OUT+ to COM; OUT terminal to MT3608 VIN+.</text>
-<text x="30" y="968" font-size="12" text-anchor="start" fill="#222">- Never connect speaker terminals to ground or to each other (BTL).</text>
-<text x="30" y="987" font-size="12" text-anchor="start" fill="#222">- PN532 runs from 3.3 V; never feed 5 V into ESP32 GPIO pins.</text>
-<text x="30" y="1006" font-size="12" text-anchor="start" fill="#222">- Switch OFF before connecting USB to the ESP32 or charging.</text>
-<text x="30" y="1025" font-size="12" text-anchor="start" fill="#222">- Buttons (top to bottom): D25 vol -, D26 vol +, D27 language.</text>
-<text x="30" y="1044" font-size="12" text-anchor="start" fill="#222">- Verify every pin label on YOUR boards first.</text>
+<polyline points="30,716 70,716" fill="none" stroke="#F9A825" stroke-width="3" stroke-linejoin="round"/>
+<text x="80" y="720" font-size="12" text-anchor="start" fill="#222">PN532 RSTO to GPIO5 (monitor input)</text>
+<polyline points="30,737 70,737" fill="none" stroke="#EF6C00" stroke-width="3" stroke-linejoin="round"/>
+<text x="80" y="741" font-size="12" text-anchor="start" fill="#222">PN532 IRQ to GPIO4 (data ready)</text>
+<polyline points="30,758 70,758" fill="none" stroke="#2E7D32" stroke-width="3" stroke-linejoin="round"/>
+<text x="80" y="762" font-size="12" text-anchor="start" fill="#222">UART: DFPlayer TX to ESP32 GPIO16</text>
+<polyline points="30,779 70,779" fill="none" stroke="#7CB342" stroke-width="3" stroke-linejoin="round"/>
+<text x="80" y="783" font-size="12" text-anchor="start" fill="#222">UART: ESP32 GPIO17 to DFPlayer RX</text>
+<polyline points="30,800 70,800" fill="none" stroke="#7B1FA2" stroke-width="3" stroke-linejoin="round"/>
+<text x="80" y="804" font-size="12" text-anchor="start" fill="#222">Analog audio DAC_L to PAM8403 L</text>
+<polyline points="30,821 70,821" fill="none" stroke="#AB47BC" stroke-width="3" stroke-linejoin="round"/>
+<text x="80" y="825" font-size="12" text-anchor="start" fill="#222">Analog audio DAC_R to PAM8403 R</text>
+<polyline points="30,842 70,842" fill="none" stroke="#607D8B" stroke-width="3" stroke-linejoin="round"/>
+<text x="80" y="846" font-size="12" text-anchor="start" fill="#222">Speaker pairs (differential)</text>
+<polyline points="30,863 70,863" fill="none" stroke="#6D4C41" stroke-width="3" stroke-linejoin="round"/>
+<text x="80" y="867" font-size="12" text-anchor="start" fill="#222">Push buttons (to GND, internal pull-up)</text>
+<text x="30" y="912" font-size="14" text-anchor="start" fill="#0B2545" font-weight="700">Notes and safety</text>
+<text x="30" y="934" font-size="12" text-anchor="start" fill="#222">* GND* = ESP32 GND pin beside 3V3: PN532, DFPlayer pin 7 and the 3 buttons.</text>
+<text x="30" y="953" font-size="12" text-anchor="start" fill="#222">- DFPlayer pin 10 (GND) goes to the PAM8403 GND between L and R.</text>
+<text x="30" y="972" font-size="12" text-anchor="start" fill="#222">- Measure MT3608 output = 5.0 V BEFORE connecting any module.</text>
+<text x="30" y="991" font-size="12" text-anchor="start" fill="#222">- Switch: TP4056 OUT+ to COM; OUT terminal to MT3608 VIN+.</text>
+<text x="30" y="1010" font-size="12" text-anchor="start" fill="#222">- Never connect speaker terminals to ground or to each other (BTL).</text>
+<text x="30" y="1029" font-size="12" text-anchor="start" fill="#222">- PN532 runs from 3.3 V; never feed 5 V into ESP32 GPIO pins.</text>
+<text x="30" y="1048" font-size="12" text-anchor="start" fill="#222">- Switch OFF before connecting USB to the ESP32 or charging.</text>
+<text x="30" y="1067" font-size="12" text-anchor="start" fill="#222">- Buttons (top to bottom): D25 vol -, D26 vol +, D27 language.</text>
+<text x="30" y="1086" font-size="12" text-anchor="start" fill="#222">- PN532 RSTO is read only (GPIO5 strapping pin); IRQ on GPIO4.</text>
+<text x="30" y="1105" font-size="12" text-anchor="start" fill="#222">- Verify every pin label on YOUR boards first.</text>
 </svg>
