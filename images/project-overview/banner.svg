@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 280" width="1200" height="280" font-family="Helvetica, Arial, sans-serif">
+<title>Talking Medicine Label banner</title>
+<desc>Original banner graphic: project title on navy background with a stylised NFC wave and sound wave. Not a photograph of the hardware.</desc>
+<rect width="1200" height="280" fill="#0B2545"/>
+<rect x="0" y="268" width="1200" height="12" fill="#13A89E"/>
+<g fill="none" stroke="#13A89E" stroke-width="6" stroke-linecap="round">
+<path d="M1010 110 a40 40 0 0 1 0 60"/><path d="M1035 90 a68 68 0 0 1 0 100"/><path d="M1060 70 a96 96 0 0 1 0 140"/></g>
+<rect x="960" y="125" width="30" height="30" fill="#fff"/><path d="M990 125 l32 -22 v84 l-32 -22z" fill="#fff"/>
+<text x="60" y="110" font-size="54" font-weight="700" fill="#fff">Talking Medicine Label</text>
+<text x="60" y="158" font-size="22" fill="#bfe9e5">An IoT-based assistive medicine information and audio system</text>
+<text x="60" y="190" font-size="22" fill="#bfe9e5">for visually impaired people</text>
+<text x="60" y="238" font-size="16" fill="#fff">ESP32 / PN532 NFC / DFPlayer Mini / PAM8403 - Community Service Project (CSP)</text>
+</svg>
