@@ -1,0 +1,11 @@
+EXAMPLE ONLY - NOT MEDICAL ADVICE. Have every real recording checked by a pharmacist and a native Telugu speaker.
+
+NFC record : type Text, language te, text "TML:001"
+SD file    : /02/001.mp3
+
+Script to record (Telugu):
+"ఇది ఉదాహరణ సందేశం మాత్రమే. ఈ మందు పేరు పారాసిటమాల్, ఐదు వందల మిల్లీగ్రాముల మాత్రలు.
+మీ డాక్టర్ లేదా ఫార్మసిస్ట్ చెప్పిన విధంగానే వాడండి. డబ్బాపై గడువు తేదీని చూడండి.
+సందేహం ఉంటే మీ ఫార్మసిస్ట్ లేదా డాక్టర్‌ను అడగండి."
+
+English meaning: example message; paracetamol 500 mg tablets; use only as your doctor or pharmacist directs; check expiry date; ask if unsure.
