@@ -77,6 +77,10 @@
 | 33 | ESP32 | GPIO27 (D27) | Push button, bottom (Language) | one side | Each press selects the next language | Other side to GND*. Internal pull-up |
 | 34 | Push buttons (x3) | common other side | ESP32 | GND (right side, beside 3V3) = GND* | Button return | **Updated from the reference diagram**: joins the same pin as Nos. 11 and 16 |
 | 35 | ESP32 | GPIO2 | on-board LED | - | Status indication | No external wiring (verify on your board) |
+| 36 | PN532 | RSTO | ESP32 | GPIO5 (D5) | PN532 reset-output line, monitored by the firmware | **New.** 3.3 V logic. Read as an input only. GPIO5 is a strapping pin (must be high at boot) |
+| 37 | PN532 | IRQ | ESP32 | GPIO4 (D4) | PN532 data-ready interrupt (active low) used by the Adafruit library in I2C mode | **New.** 3.3 V logic |
+
+> **Update after the reference photo-diagram:** the PN532 **RSTO to D5 (GPIO5)** and **IRQ to D4 (GPIO4)** wires (rows 36 and 37) were added by the author later. `images/circuit/reference-wiring-diagram.jpg` does **not** show them; the schematic SVG and the tables do.
 
 ## Electrical rules applied
 
@@ -93,6 +97,13 @@
 11. Push buttons connect GPIO25/26/27 to GND; the firmware enables the internal pull-ups, so no resistors are needed. Keep these wires short or use ferrite-free twisted pairs if they run far.
 12. Do not connect the ESP32 USB port to a computer while the battery switch is ON unless you have confirmed your board blocks back-feeding. Switch OFF first.
 
+## PN532 IRQ and RSTO
+
+- **IRQ (GPIO4):** active-low data-ready line. The Adafruit library reads it in I2C mode to know when a reply is available. If the IRQ wire is wrong, the PN532 may look "not found": test by setting `PN532_IRQ_PIN` to `0xFF` (plain I2C polling).
+- **RSTO (GPIO5):** on this module RSTO is believed to be the PN532 chip's reset **output** (not verified in this session: check your module's manual). For that reason the firmware only **reads** it (`pinMode(..., INPUT)`) and does not hand it to the library as a reset pin. Never drive it from the ESP32 unless you have confirmed it is a reset input.
+- GPIO5 is an ESP32 strapping pin and must be high at boot; an idle-high RSTO output is fine. GPIO4 has no boot restriction.
+- Both lines are 3.3 V logic. Both pins (D4, D5) are labelled on the supplied ESP32 photo.
+
 ## PN532 mode selection
 
 I2C mode: S1 = ON, S2 = OFF (UART = both OFF, SPI = S1 OFF / S2 ON), per the ShillehTek manual. Change switches with power off. Silkscreen conventions can differ between revisions: confirm with an I2C scan that finds address 0x24.
@@ -100,6 +111,7 @@ I2C mode: S1 = ON, S2 = OFF (UART = both OFF, SPI = S1 OFF / S2 ON), per the Shi
 ## Unresolved items
 
 - Which switch position connects COM to OUT on your switch.
+- Whether RSTO on your PN532 revision is a reset output (assumed) or an input.
 - Exact PN532 board revision and whether its pull-ups/regulator match the ShillehTek description.
 - Exact ESP32 clone: GPIO exposure and USB back-feed protection.
 - Whether the supplied PAM8403 module has a volume pot/switch (if so, the knob must be clicked ON).
