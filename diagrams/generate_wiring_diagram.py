@@ -4,7 +4,7 @@ Usage (repo root): python3 diagrams/generate_wiring_diagram.py"""
 import os
 NAVY="#0B2545"; TEAL="#13A89E"
 C=dict(vbat="#E67E22",v5="#C0392B",v33="#D81B60",gnd="#222222",sda="#1E88E5",scl="#00897B",
-       rx="#2E7D32",tx="#7CB342",aud="#7B1FA2",audr="#AB47BC",spk="#607D8B",btn="#6D4C41")
+       rx="#2E7D32",tx="#7CB342",aud="#7B1FA2",audr="#AB47BC",spk="#607D8B",btn="#6D4C41",irq="#F9A825",irq2="#EF6C00")
 o=[]
 def box(x,y,w,h,title,sub="",dy=0):
     o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="{NAVY}"/>')
@@ -59,13 +59,13 @@ txt(1230,38,"5 V rail (switched, regulated)",12,"end",C["v5"],True); txt(700,255
 # PN532
 box(840,60,360,120,"PN532 NFC V3","I2C mode: S1=ON, S2=OFF")
 pin(840,100,"GND","l"); wire([(840,100),(815,100),(815,420),(855,420)],C["gnd"]); dot(855,420,C["gnd"])
-pin(900,180,"VCC 3.3V","b"); pin(1000,180,"SDA","b"); pin(1100,180,"SCL","b")
+pin(880,180,"VCC 3.3V","b"); pin(960,180,"SDA","b"); pin(1030,180,"SCL","b"); pin(1100,180,"RSTO","b"); pin(1165,180,"IRQ","b")
 # ESP32
 box(840,250,360,140,"ESP32 NodeMCU 30-pin","CP2102, powered via VIN")
 pin(840,300,"GND","l"); wire([(780,300),(840,300)],C["gnd"]); dot(780,300,C["gnd"])
 pin(1200,300,"VIN","r"); wire([(1200,300),(1270,300)],C["v5"]); dot(1270,300,C["v5"])
-pin(900,250,"3V3","t"); pin(1000,250,"GPIO21","t"); pin(1100,250,"GPIO22","t")
-wire([(900,180),(900,250)],C["v33"]); wire([(1000,180),(1000,250)],C["sda"]); wire([(1100,180),(1100,250)],C["scl"])
+pin(880,250,"3V3","t"); pin(960,250,"GPIO21","t"); pin(1030,250,"GPIO22","t"); pin(1100,250,"GPIO5","t"); pin(1165,250,"GPIO4","t")
+wire([(880,180),(880,250)],C["v33"]); wire([(960,180),(960,250)],C["sda"]); wire([(1030,180),(1030,250)],C["scl"]); wire([(1100,180),(1100,250)],C["irq"]); wire([(1165,180),(1165,250)],C["irq2"])
 pin(855,390,"GND*","b"); pin(925,390,"GPIO16","b"); pin(1010,390,"GPIO17","b")
 for x,l,g in ((1070,"VOL-","GPIO25"),(1120,"VOL+","GPIO26"),(1170,"LANG","GPIO27")):
     pin(x,390,g[4:] and g,"b")
@@ -101,7 +101,7 @@ txt(30,530,"LED anode (+) on the resistor side. Red = charging, green = fully ch
 lx,ly=30,570
 txt(lx,ly,"Legend",14,col=NAVY,bold=True)
 items=[("vbat","Battery / protected 3.0-4.2 V (before boost)"),("v5","5 V (MT3608 output)"),("v33","3.3 V (ESP32 3V3 pin)"),("gnd","Ground"),
- ("sda","I2C SDA"),("scl","I2C SCL"),("rx","UART: DFPlayer TX to ESP32 GPIO16"),("tx","UART: ESP32 GPIO17 to DFPlayer RX"),
+ ("sda","I2C SDA"),("scl","I2C SCL"),("irq","PN532 RSTO to GPIO5 (monitor input)"),("irq2","PN532 IRQ to GPIO4 (data ready)"),("rx","UART: DFPlayer TX to ESP32 GPIO16"),("tx","UART: ESP32 GPIO17 to DFPlayer RX"),
  ("aud","Analog audio DAC_L to PAM8403 L"),("audr","Analog audio DAC_R to PAM8403 R"),("spk","Speaker pairs (differential)"),("btn","Push buttons (to GND, internal pull-up)")]
 for i,(k,l) in enumerate(items):
     y=ly+24+i*21; wire([(lx,y-4),(lx+40,y-4)],C[k]); txt(lx+50,y,l,12)
@@ -110,7 +110,7 @@ txt(lx,sy,"Notes and safety",14,col=NAVY,bold=True)
 notes=["* GND* = ESP32 GND pin beside 3V3: PN532, DFPlayer pin 7 and the 3 buttons.","DFPlayer pin 10 (GND) goes to the PAM8403 GND between L and R.",
 "Measure MT3608 output = 5.0 V BEFORE connecting any module.","Switch: TP4056 OUT+ to COM; OUT terminal to MT3608 VIN+.",
 "Never connect speaker terminals to ground or to each other (BTL).","PN532 runs from 3.3 V; never feed 5 V into ESP32 GPIO pins.",
-"Switch OFF before connecting USB to the ESP32 or charging.","Buttons (top to bottom): D25 vol -, D26 vol +, D27 language.","Verify every pin label on YOUR boards first."]
+"Switch OFF before connecting USB to the ESP32 or charging.","Buttons (top to bottom): D25 vol -, D26 vol +, D27 language.","PN532 RSTO is read only (GPIO5 strapping pin); IRQ on GPIO4.","Verify every pin label on YOUR boards first."]
 for i,n in enumerate(notes): txt(lx,sy+22+i*19,"- "+n if not n.startswith("*") else n,12)
 o.append('</svg>')
 os.makedirs("images/circuit",exist_ok=True)
