@@ -56,7 +56,7 @@ save("banner-animated.svg",b,1200,280,"Talking Medicine Label animated banner","
 nodes=[(30,"NFC tag","TML:007 + lang"),(230,"PN532","NFC reader, I2C"),(430,"ESP32","controller"),(630,"DFPlayer Mini","microSD audio"),(830,"PAM8403","stereo amp"),(1030,"Speakers","L and R")]
 s=text(600,38,"From tag to spoken instruction",20,NAVY,bold=True)
 for x,t,sub in nodes: s+=box(x,120,150,90,t,sub)
-labels=["RF","I2C","UART2","DAC L/R","BTL L/R"]
+labels=["RF","I2C+IRQ","UART2","DAC L/R","BTL L/R"]
 cols=["#13A89E","#1E88E5","#2E7D32","#7B1FA2","#607D8B"]
 for i in range(5):
     x1=nodes[i][0]+150; x2=nodes[i+1][0]
