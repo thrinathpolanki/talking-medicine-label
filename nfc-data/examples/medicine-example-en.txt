@@ -1,0 +1,9 @@
+EXAMPLE ONLY - NOT MEDICAL ADVICE. Have every real recording checked by a pharmacist.
+
+NFC record : type Text, language en, text "TML:001"
+SD file    : /01/001.mp3
+
+Script to record:
+"This is an example message. The medicine is paracetamol, five hundred milligram tablets.
+Take it only as directed by your doctor or pharmacist. Check the expiry date on the box.
+If you are unsure, ask your pharmacist or doctor."
