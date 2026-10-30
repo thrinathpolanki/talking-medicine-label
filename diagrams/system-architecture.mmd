@@ -9,7 +9,7 @@ flowchart LR
   SPKR["Speaker R"]
   USER(["User hears the<br/>medicine instructions"])
   TAG -->|"13.56 MHz RF"| PN
-  PN -->|"I2C: SDA GPIO21, SCL GPIO22"| ESP
+  PN -->|"I2C: SDA GPIO21, SCL GPIO22<br/>IRQ GPIO4, RSTO GPIO5"| ESP
   BTN -->|"active low inputs"| ESP
   ESP -->|"UART2: GPIO16 RX, GPIO17 TX<br/>play folder and track, volume"| DFP
   DFP -->|"DAC_L and DAC_R analog audio"| AMP
