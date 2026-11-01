@@ -6,7 +6,7 @@
 
 | Symptom | Likely cause | Diagnostic steps |
 |---|---|---|
-| PN532 not detected ("PN532 NOT found") | DIP switches not in I2C; SDA/SCL swapped; no 3.3 V | Power off, set S1 ON / S2 OFF; measure PN532 VCC (3.3 V); swap SDA/SCL; run an I2C scanner: expect 0x24; shorten wires |
+| PN532 not detected ("PN532 NOT found") | DIP switches not in I2C; SDA/SCL swapped; no 3.3 V; IRQ (GPIO4) wire missing or wrong | Power off, set S1 ON / S2 OFF; measure PN532 VCC (3.3 V); swap SDA/SCL; run an I2C scanner: expect 0x24; if the scan works but the firmware does not, set `PN532_IRQ_PIN` to `0xFF` to test without IRQ; shorten wires |
 | NFC tag not recognised | Wrong tag type, metal behind tag, too far | Distance 1-4 cm; stickers need non-metal surface or on-metal tag; the serial monitor prints the UID: 7 bytes expected (NTAG) |
 | Incorrect NFC mode settings | S1/S2 wrong, or I2C bus read as UART | Re-set before power-up; check the silkscreen ON direction with tweezers |
 | Tag read but "invalid" | Tag not written as NDEF Text `TML:nnn`, or language missing | Read it back with a phone NFC app; confirm text and language code; blank tags give status 1 |
