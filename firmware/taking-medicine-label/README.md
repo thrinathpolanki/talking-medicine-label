@@ -9,7 +9,7 @@
 
 ![Operating workflow](../../images/circuit/wiring-diagram.svg)
 
-*Pins used by this firmware (GPIO21, 22, 16, 17, 25, 26, 27) appear in the diagram above.*
+*Pins used by this firmware (GPIO21, 22, 4, 5, 16, 17, 25, 26, 27) appear in the diagram above.*
 
 ```mermaid
 flowchart TD
@@ -54,6 +54,9 @@ Written, **not compiled in Arduino IDE and not run on hardware** by the author. 
 
 ## Tag format and SD layout
 NDEF Text record, text `TML:<1-255>`, language `en`/`te`/`hi` -> plays `/<folder>/<id>.mp3` (en=01, te=02, hi=03). Details: `nfc-data/README.md`, `audio/README.md`.
+
+## PN532 extra lines
+IRQ is wired to GPIO4 and used by the Adafruit library; RSTO is wired to GPIO5 and only monitored (input). See `config.example.h` for why the library is not given RSTO as a reset pin.
 
 ## Buttons
 Wired as in the reference diagram, top to bottom: D25 volume down, D26 volume up, D27 language; common return to the ESP32 GND beside 3V3.
