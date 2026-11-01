@@ -1,32 +1,45 @@
-# Audio (microSD card)
+// Host-side unit test for firmware/talking-medicine-label/ndef_parser.h
+// Build: g++ -std=c++11 -Wall -Wextra -I firmware/talking-medicine-label tests/ndef_parser_test.cpp -o /tmp/ndef_test && /tmp/ndef_test
+#include <cstdio>
+#include <vector>
+#include <string>
+#include "ndef_parser.h"
 
-<p align="center"><img src="../images/animations/audio-chain.svg" alt="Animated audio path from microSD through DFPlayer Mini and PAM8403 to left and right speakers" width="100%"></p>
-
-![DFPlayer Mini MP3-TF-16P V3.0, two views](../images/components/dfplayer-mini-mp3-tf-16p.png)
-
-*DFPlayer Mini photographs supplied by the project author (licence unverified; see `docs/references.md`).*
-
-
-```mermaid
-flowchart TD
-  SD["microSD (FAT32, 32 GB or less)"] --> F1["/01 English"]
-  SD --> F2["/02 Telugu"]
-  SD --> F3["/03 Hindi (planned)"]
-  SD --> F99["/99 System prompts"]
-  F1 --> A1["001.mp3 = medicine ID 1"]
-  F1 --> A2["002.mp3 = medicine ID 2"]
-  F99 --> S1["001 ready"]
-  F99 --> S2["002 tag not recognised"]
-  F99 --> S3["003 audio missing"]
-  F99 --> S4["004 hold tag steady"]
-  F99 --> S5["005-007 language names"]
-  F99 --> S6["008 volume limit beep"]
-```
-
-Folders are two digits (01-99) and files three digits (001-255), matching the DFPlayer `playFolder(folder, file)` command (manual section 3.4.4). The firmware plays `/<folder>/<id>.mp3`.
-
-`/99/005.mp3` = "English", `006` = "Telugu" (spoken in Telugu), `007` = "Hindi" (only if enabled), `008` = short beep at the volume limits. The language button speaks 005/006 so the user knows which language is active.
-
-**Recording guidelines:** mono mp3 (the same signal plays on both speakers), 44.1 kHz, 128 kbps; speak medicine name, strength, when/how to take, key warning, and "follow your doctor's advice"; have a pharmacist review. Telugu recordings should be by a native speaker. The `/99` prompts are required when `ENABLE_SYSTEM_PROMPTS` is 1. This repository ships **no audio files**.
-
-**SD tips:** copy files into the folders in numeric order; on macOS run `dot_clean /Volumes/<card>` to delete `._` files; no sub-folders inside language folders.
+static std::vector<uint8_t> textRecord(const std::string& lang, const std::string& text, bool utf16 = false) {
+  std::vector<uint8_t> payload;
+  payload.push_back((utf16 ? 0x80 : 0x00) | (uint8_t)lang.size());
+  payload.insert(payload.end(), lang.begin(), lang.end());
+  payload.insert(payload.end(), text.begin(), text.end());
+  std::vector<uint8_t> rec = {0xD1, 0x01, (uint8_t)payload.size(), 'T'};
+  rec.insert(rec.end(), payload.begin(), payload.end());
+  std::vector<uint8_t> mem = {0x03, (uint8_t)rec.size()};
+  mem.insert(mem.end(), rec.begin(), rec.end());
+  mem.push_back(0xFE);
+  mem.resize(64, 0x00);
+  return mem;
+}
+static int fails = 0;
+static void expect(const char* name, NdefStatus got, NdefStatus want) {
+  bool ok = got == want; if (!ok) fails++;
+  std::printf("%-34s %s (got %d, want %d)\n", name, ok ? "PASS" : "FAIL", got, want);
+}
+int main() {
+  TmlRecord r;
+  auto m = textRecord("en", "TML:007");
+  expect("english id 7", parseTmlNdef(m.data(), m.size(), &r), NDEF_OK);
+  if (std::string(r.lang) != "en" || r.medId != 7) { std::printf("FAIL fields\n"); fails++; }
+  m = textRecord("te", "TML:255");  expect("telugu id 255", parseTmlNdef(m.data(), m.size(), &r), NDEF_OK);
+  m = textRecord("EN", "TML:12");   expect("upper-case lang", parseTmlNdef(m.data(), m.size(), &r), NDEF_OK);
+  if (std::string(r.lang) != "en") { std::printf("FAIL lowercase\n"); fails++; }
+  m = textRecord("en", "TML:000");  expect("id 0 rejected", parseTmlNdef(m.data(), m.size(), &r), NDEF_BAD_ID);
+  m = textRecord("en", "TML:256");  expect("id 256 rejected", parseTmlNdef(m.data(), m.size(), &r), NDEF_BAD_ID);
+  m = textRecord("en", "TML:1x3");  expect("non-numeric id", parseTmlNdef(m.data(), m.size(), &r), NDEF_BAD_ID);
+  m = textRecord("en", "XYZ:001");  expect("wrong prefix", parseTmlNdef(m.data(), m.size(), &r), NDEF_NOT_TML);
+  m = textRecord("en", "TML:007", true); expect("utf16 rejected", parseTmlNdef(m.data(), m.size(), &r), NDEF_BAD_TEXT_ENCODING);
+  std::vector<uint8_t> blank(64, 0); expect("blank tag", parseTmlNdef(blank.data(), blank.size(), &r), NDEF_NO_NDEF_TLV);
+  std::vector<uint8_t> uri = {0x03,0x08,0xD1,0x01,0x04,'U',0x00,'a','b','c',0xFE}; uri.resize(64,0);
+  expect("URI record rejected", parseTmlNdef(uri.data(), uri.size(), &r), NDEF_NOT_TEXT_RECORD);
+  m = textRecord("en", "TML:007"); expect("truncated buffer", parseTmlNdef(m.data(), 8, &r), NDEF_TRUNCATED);
+  std::printf(fails ? "\n%d FAILED\n" : "\nALL PASSED\n", fails);
+  return fails ? 1 : 0;
+}
