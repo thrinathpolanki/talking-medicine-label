@@ -113,7 +113,7 @@ bool initPn532() {
     }
     delay(300);
   }
-  Serial.println(F("PN532 NOT found: check DIP switches (I2C), SDA/SCL, 3V3, GND."));
+  Serial.println(F("PN532 NOT found: check DIP switches (I2C), SDA/SCL, IRQ (GPIO4), 3V3, GND. Try PN532_IRQ_PIN 0xFF."));
   return false;
 }
 
@@ -224,6 +224,7 @@ void setup() {
   btStop();  // Wi-Fi is never started; Bluetooth stopped to reduce current draw
   Serial.println(F("\nTalking Medicine Label - starting"));
 
+  pinMode(PIN_PN532_RSTO, INPUT);   // read-only monitor of the PN532 reset-output line
   Wire.begin(PIN_I2C_SDA, PIN_I2C_SCL);
   Wire.setClock(I2C_CLOCK_HZ);
   dfSerial.begin(DFPLAYER_BAUD, SERIAL_8N1, PIN_DFPLAYER_RX, PIN_DFPLAYER_TX);
@@ -244,7 +245,8 @@ void loop() {
   static uint32_t lastCheck = 0;
   if (millis() - lastCheck > (pn532Online ? PN532_RECHECK_MS : 5000UL)) {
     lastCheck = millis();
-    if (!pn532Online || !nfc.getFirmwareVersion()) pn532Online = initPn532();
+    if (digitalRead(PIN_PN532_RSTO) == LOW) Serial.println(F("PN532 RSTO line is LOW (chip in reset?)"));
+    if (!pn532Online || digitalRead(PIN_PN532_RSTO) == LOW || !nfc.getFirmwareVersion()) pn532Online = initPn532();
     if (!dfOnline) dfOnline = initDfPlayer();
   }
   if (!pn532Online) return;
