@@ -10,8 +10,13 @@
 #define PIN_I2C_SDA          21     // ESP32 GPIO21 -> PN532 SDA/TXD
 #define PIN_I2C_SCL          22     // ESP32 GPIO22 -> PN532 SCL/RXD
 #define I2C_CLOCK_HZ         100000 // conservative 100 kHz; PN532 is not reliable with long wires at 400 kHz
-#define PN532_IRQ_PIN        0xFF   // 0xFF = IRQ/RESET pins not used (polling over I2C)
-#define PN532_RESET_PIN      0xFF
+#define PIN_PN532_IRQ        4      // ESP32 GPIO4 (D4) <- PN532 IRQ (active low "data ready" line)
+#define PIN_PN532_RSTO       5      // ESP32 GPIO5 (D5) <- PN532 RSTO. Monitored as an INPUT only (see note below)
+#define PN532_IRQ_PIN        PIN_PN532_IRQ  // set to 0xFF to ignore IRQ and poll over I2C instead
+#define PN532_RESET_PIN      0xFF   // 0xFF: the Adafruit library must NOT drive the RSTO line.
+                                    // RSTO is believed to be a reset OUTPUT of the PN532 chip (verify in your board's
+                                    // manual). Only set this to a GPIO if you have confirmed the pin is a reset INPUT.
+                                    // Note: GPIO5 is an ESP32 strapping pin; it must be high at boot (PN532 RSTO idles high).
 
 // ---- DFPlayer Mini on ESP32 UART2 ----
 #define PIN_DFPLAYER_RX      16     // ESP32 RX2 <- DFPlayer TX
