@@ -24,6 +24,8 @@
 
 ## Author-supplied reference diagram
 
+*Note: the diagram predates the PN532 IRQ (to D4) and RSTO (to D5) wires.*
+
 `images/circuit/reference-wiring-diagram.jpg` was supplied by the project author and is used as the reference for the final connections. The diagram embeds photographs of the components whose original sources and licences are **not recorded**. Before publishing the repository publicly, replace it with a version built from your own photographs or from images whose licence allows redistribution, or remove the file and keep the schematic SVG.
 
 ## Component photograph register
