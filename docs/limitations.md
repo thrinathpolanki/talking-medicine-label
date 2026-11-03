@@ -12,5 +12,8 @@
 - Read range about 3-7 cm.
 - Battery capacity and converter headroom unverified.
 
+- No user testing has been done (see [accessibility-and-usability.md](accessibility-and-usability.md)).
+- Enclosure layout and tactile design are suggestions only (see [enclosure-and-layout.md](enclosure-and-layout.md)).
+
 ## Proposed (not implemented)
 More Indian languages, repeat button, battery-level voice alert, sleep mode, better enclosure, tag authentication (NTAG password), UID fallback table, optional offline TTS.
