@@ -15,4 +15,4 @@ flowchart LR
 
 The device is an **aid**. Recordings must be prepared and checked by a qualified person (pharmacist or doctor). It never replaces prescriptions, pharmacist advice, or the doctor's instructions.
 
-See the root [README](../README.md) for the full report.
+See the root [README](../README.md) for the full report, [how-it-works.md](how-it-works.md) for the byte-level walkthrough and [accessibility-and-usability.md](accessibility-and-usability.md) for the design thinking.
