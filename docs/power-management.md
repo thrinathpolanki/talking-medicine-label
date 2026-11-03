@@ -18,6 +18,10 @@ flowchart LR
   ESPV -->|"on-board 3.3 V regulator"| PNV["PN532 VCC 3.3 V"]
 ```
 
+## The charging cycle
+
+<p align="center"><img src="../images/animations/charging-cycle.svg" alt="Animated TP4056 charging cycle with LEDs and schematic curves" width="100%"></p>
+
 ## Why the MT3608 does not charge the battery
 
 The MT3608 is a one-way **boost** converter: it raises the cell voltage (about 3.0-4.2 V) to 5 V for the electronics. It has no battery-charging function. Charging is done only by the **TP4056** (constant-current / constant-voltage to 4.2 V), fed from the USB-C input.
@@ -36,6 +40,10 @@ The MT3608 is a one-way **boost** converter: it raises the cell voltage (about 3
 3. Turn the trim potentiometer (counter-clockwise raises voltage per supplier notes; it may need many turns) until the meter reads **5.0 V (4.95-5.10 V)**.
 4. Switch OFF, wait 10 s, connect the 5 V rail, switch ON, re-measure on the rail. Record the values in `tests/hardware-validation-checklist.md`.
 5. Never assume the factory setting is 5 V: it can be well above (up to 28 V possible) and would destroy the modules.
+
+## Setting the output voltage
+
+<p align="center"><img src="../images/animations/mt3608-adjust.svg" alt="Animated MT3608 adjustment with a multimeter reading" width="100%"></p>
 
 ## Voltage measurements before first power-up
 
@@ -61,6 +69,9 @@ The supplied speakers are marked **8 ohm, 0.5 W** (photo in `images/components/s
 | PAM8403 + two 0.5 W speakers | 6 mA idle | about 0.25 A with both speakers at their 0.5 W rating (1 W out / 0.8 efficiency / 5 V) | Power calculation |
 | LEDs | about 3 mA (blue); red/green only on USB | 10 mA | (5 V - about 2 V) / 1 kOhm |
 | **Total** | **about 0.2-0.3 A** | **about 0.5 A** | |
+
+
+<p align="center"><img src="../images/animations/power-budget.svg" alt="Animated bar chart of estimated current by load" width="100%"></p>
 
 Battery-side current for a boost converter (efficiency assumed 85%): `I_bat = (5 V x I_rail) / (0.85 x V_bat)`.
 
