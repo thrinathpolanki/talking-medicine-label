@@ -167,3 +167,14 @@ strip("strip-safety.svg","Safety guidelines","Medical and electrical precautions
 strip("strip-limitations.svg","Limitations and future work","What is not done yet")
 strip("strip-references.svg","References and image register","Sources, status and licences")
 strip("strip-troubleshooting.svg","Testing and troubleshooting","Symptoms, causes and meter checks")
+
+# ---------- extra section strips (added with the detailed documents) ----------
+strip("strip-howitworks.svg","How it works","Tap, read, validate, play: byte by byte")
+strip("strip-pinout.svg","Pin reference","Every module pin and every ESP32 GPIO in use")
+strip("strip-firmware.svg","Firmware design","Configuration, states, errors and LED patterns")
+strip("strip-bom.svg","Bill of materials","Quantities, notes and status of every part")
+strip("strip-testplan.svg","Test plan","Thirty-five cases with expected results","steps")
+strip("strip-accessibility.svg","Accessibility and usability","Designing for touch, hearing and trust")
+strip("strip-enclosure.svg","Enclosure and layout","Where each part should sit")
+strip("strip-faq.svg","FAQ and glossary","Short answers and plain-language terms")
+strip("strip-changelog.svg","Changelog","How the design evolved")
