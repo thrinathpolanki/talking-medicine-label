@@ -4,6 +4,8 @@
 <p align="center"><img src="../images/animations/checklist.svg" alt="Animated validation checklist ticking item by item" width="100%"></p>
 
 
+<p align="center"><img src="../images/animations/troubleshooting-flow.svg" alt="Animated troubleshooting flow from the first question to the last" width="100%"></p>
+
 | Symptom | Likely cause | Diagnostic steps |
 |---|---|---|
 | PN532 not detected ("PN532 NOT found") | DIP switches not in I2C; SDA/SCL swapped; no 3.3 V; IRQ (GPIO4) wire missing or wrong | Power off, set S1 ON / S2 OFF; measure PN532 VCC (3.3 V); swap SDA/SCL; run an I2C scanner: expect 0x24; if the scan works but the firmware does not, set `PN532_IRQ_PIN` to `0xFF` to test without IRQ; shorten wires |
