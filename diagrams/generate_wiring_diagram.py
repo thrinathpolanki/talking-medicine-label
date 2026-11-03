@@ -116,3 +116,35 @@ o.append('</svg>')
 os.makedirs("images/circuit",exist_ok=True)
 open("images/circuit/wiring-diagram.svg","w").write("\n".join(o))
 print("written")
+
+# ---------------- animated overlay version ----------------
+def flow(path,col,dur=3.0,begin=0,r=5,pingpong=False):
+    if pingpong:
+        return (f'<circle r="{r}" fill="{col}" stroke="#fff" stroke-width="1"><animateMotion dur="{dur}s" begin="{begin}s" repeatCount="indefinite" path="{path}" '
+                f'keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"/></circle>')
+    return (f'<circle r="{r}" fill="{col}" stroke="#fff" stroke-width="1"><animateMotion dur="{dur}s" begin="{begin}s" repeatCount="indefinite" path="{path}"/></circle>')
+def pulse_el(cx,cy,r,col,dur,begin,lo=0.0):
+    return f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="{col}" opacity="{lo}"><animate attributeName="opacity" values="{lo};0.9;{lo}" dur="{dur}s" begin="{begin}s" repeatCount="indefinite"/></circle>'
+A=[]
+A.append(flow("M70,130 L70,190",C["vbat"],2.0,0)); A.append(flow("M70,130 L70,190",C["vbat"],2.0,1.0))
+A.append(flow("M220,230 L440,230",C["vbat"],2.4,0)); A.append(flow("M220,230 L440,230",C["vbat"],2.4,1.2))
+A.append(flow("M630,230 L650,230 L650,44 L1270,44 L1270,800",C["v5"],9.0,0,6)); A.append(flow("M630,230 L650,230 L650,44 L1270,44 L1270,800",C["v5"],9.0,3,6)); A.append(flow("M630,230 L650,230 L650,44 L1270,44 L1270,800",C["v5"],9.0,6,6))
+A.append(flow("M780,800 L780,265 L630,265","#555",7.0,0,4)); A.append(flow("M780,800 L780,265 L630,265","#555",7.0,3.5,4))
+A.append(flow("M960,180 L960,250",C["sda"],1.6,0,4,True)); A.append(flow("M1030,180 L1030,250",C["scl"],1.0,0,4))
+A.append(flow("M1165,180 L1165,250","#EF6C00",3.0,0.5,4)); A.append(flow("M1100,250 L1100,180","#F9A825",3.0,1.5,4))
+A.append(flow("M925,510 L925,390",C["rx"],2.4,0,4)); A.append(flow("M1010,390 L1010,510",C["tx"],2.4,1.0,4))
+A.append(flow("M900,660 L900,740",C["aud"],1.2,0,4)); A.append(flow("M900,660 L900,740",C["aud"],1.2,0.6,4))
+A.append(flow("M960,660 L960,740",C["audr"],1.2,0.3,4)); A.append(flow("M960,660 L960,740",C["audr"],1.2,0.9,4))
+for x in (880,940,1060,1120):
+    A.append(flow(f"M{x},890 L{x},960",C["spk"],1.2,(x%7)*0.15,4,True))
+# LEDs
+A.append(pulse_el(311,424,12,"#FF1744",6,0)); A.append(pulse_el(311,464,12,"#00E676",6,3)); A.append(pulse_el(311,504,12,"#40C4FF",2.5,0,0.25))
+# buttons press
+for i,x in enumerate((1070,1120,1170)):
+    A.append(f'<rect x="{x-21}" y="408" width="42" height="24" rx="4" fill="{C["btn"]}" opacity="0"><animate attributeName="opacity" values="0;0.55;0" dur="9s" begin="{i*3}s" repeatCount="indefinite"/></rect>')
+# speaker rings
+for cx in (900,1090):
+    A.append(f'<circle cx="{cx}" cy="985" r="10" fill="none" stroke="{C["spk"]}" stroke-width="3"><animate attributeName="r" values="10;38" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0" dur="2s" repeatCount="indefinite"/></circle>')
+A.append('<text x="30" y="1098" font-size="12" fill="#555">Animated: moving dots show current/signal direction (bus lines move both ways); LEDs, buttons and speakers pulse.</text>')
+open("images/circuit/wiring-diagram-animated.svg","w").write("\n".join(o[:-1])+"\n"+"\n".join(A)+"\n</svg>")
+print("animated written")
