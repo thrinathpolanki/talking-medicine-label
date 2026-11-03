@@ -25,6 +25,8 @@
 
 **About these photographs:** they were supplied by the project author. Their original sources and licences were **not recorded**, so they are listed as "unverified" in [`references.md`](references.md); confirm the rights (or replace them with your own photos) before publishing the repository publicly. Observations taken from the photos: the ESP32 board is labelled D21, D22, TX2, RX2, D25, D26, D27, VIN, 3V3 and two GND pins; the PAM8403 is the HW-104 variant (no volume pot); the PN532 offers a four-pin I2C header (SCL, SDA, VCC, GND) and a mode DIP switch; the TP4056 board shows LED1/LED2 footprints on its right edge; the cell is marked INR21700-45E; the speakers are marked 8 ohm 0.5 W; the resistor photo's colour bands do not match 1 kOhm.
 
+See also [bill-of-materials.md](bill-of-materials.md) for quantities and [pinout-reference.md](pinout-reference.md) for every pin.
+
 ## Additional accessories (not assumed to be available)
 
 | Accessory | Notes |
