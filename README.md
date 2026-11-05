@@ -25,6 +25,24 @@ Community Service Project (CSP) - IoT / assistive technology.
 | Audio recordings | Not supplied: you must record and have them reviewed |
 | Wi-Fi, cloud, translation, AI | **Not implemented and not planned in this version** |
 
+## Documentation map
+
+| Document | What it contains |
+|---|---|
+| [`docs/how-it-works.md`](docs/how-it-works.md) | One tap step by step, NDEF bytes, DFPlayer frame, latch, buttons (animated) |
+| [`docs/pinout-reference.md`](docs/pinout-reference.md) | Every pin of every module and every ESP32 GPIO in use |
+| [`docs/circuit-connections.md`](docs/circuit-connections.md) | 37-row connection table, rules, reference-diagram analysis |
+| [`docs/power-management.md`](docs/power-management.md) | Charging cycle, MT3608 adjustment, current budget, battery checks |
+| [`docs/firmware-design.md`](docs/firmware-design.md) | Functions, generated configuration table, error matrix, LED patterns |
+| [`docs/bill-of-materials.md`](docs/bill-of-materials.md) | 24 line items with quantities and notes |
+| [`docs/assembly-guide.md`](docs/assembly-guide.md) | Twelve stages with checkpoints |
+| [`docs/testing-and-troubleshooting.md`](docs/testing-and-troubleshooting.md) | Symptom table and animated troubleshooting flow |
+| [`tests/test-plan.md`](tests/test-plan.md) | 35 test cases (none run yet) |
+| [`docs/accessibility-and-usability.md`](docs/accessibility-and-usability.md) | Design principles, recording structure, trial plan |
+| [`docs/enclosure-and-layout.md`](docs/enclosure-and-layout.md) | Suggested placement of every part |
+| [`docs/faq-and-glossary.md`](docs/faq-and-glossary.md) | Short answers and plain-language terms |
+| [`CHANGELOG.md`](CHANGELOG.md) | How the design evolved |
+
 ## What is this project
 
 Many medicine boxes use tiny print. A person who is blind, has low vision, or cannot read small text may not be able to tell which medicine is in their hand.
@@ -100,6 +118,14 @@ flowchart LR
   MT -->|"5 V rail"| PAMV["PAM8403 VCC"]
   ESPV -->|"on-board 3.3 V regulator"| PNV["PN532 VCC 3.3 V"]
 ```
+
+One tap in detail (animated sequence, with the byte-level views in [`docs/how-it-works.md`](docs/how-it-works.md)):
+
+<p align="center"><img src="images/animations/sequence-tag-to-audio.svg" alt="Animated sequence diagram of one tap" width="100%"></p>
+
+<p align="center"><img src="images/animations/ndef-bytes.svg" alt="Animated breakdown of the tag memory bytes" width="100%"></p>
+
+<p align="center"><img src="images/animations/dfplayer-frame.svg" alt="Animated breakdown of the DFPlayer command frame" width="100%"></p>
 
 Operating workflow:
 
@@ -243,6 +269,10 @@ The author supplied this annotated diagram of the intended build. Its details ha
 
 ## Wiring diagram
 
+Animated version (dots show current and signal direction; the static version follows):
+
+<p align="center"><img src="images/circuit/wiring-diagram-animated.svg" alt="Animated wiring diagram with moving current and signal dots" width="100%"></p>
+
 ![Schematic-style wiring diagram showing battery, TP4056, switch, MT3608, ESP32, PN532, DFPlayer Mini, PAM8403 and speaker with colour-coded wires](images/circuit/wiring-diagram.svg)
 
 This is a pin-accurate **schematic-style** diagram generated from the same data as the table and firmware. It does not use component photographs and shows logical, not physical, pin positions; a photo-based diagram is future work.
@@ -271,13 +301,23 @@ The playback language is chosen with the language button (the tag's language cod
 
 <p align="center"><img src="images/animations/power-flow.svg" alt="Animated power flow from USB-C and battery through TP4056, switch and MT3608 to the 5 V rail and its loads" width="100%"></p>
 
+<p align="center"><img src="images/animations/charging-cycle.svg" alt="Animated TP4056 charging cycle" width="100%"></p>
+
+<p align="center"><img src="images/animations/mt3608-adjust.svg" alt="Animated MT3608 adjustment with a multimeter" width="100%"></p>
+
+<p align="center"><img src="images/animations/power-budget.svg" alt="Animated current budget chart" width="100%"></p>
+
 Battery to TP4056 B+/B-; OUT+ through the switch to MT3608 VIN+; OUT- to VIN-. The MT3608 only boosts voltage and **cannot charge the battery**; the TP4056 does that from USB-C. Charge with the switch OFF. Before first power-up, measure and set the MT3608 to 5.0 V. The supplied speakers are only **8 ohm, 0.5 W**, so the volume must be capped (firmware range 3-15, to be calibrated to about 2 V RMS across a speaker). At that level the 5 V rail needs about 0.2-0.5 A; an overdriven amplifier could pull far more and would damage the speakers. The cell in the supplied photo is marked **INR21700-45E**, i.e. a **21700** cell rather than the 18650 in the bill of materials; confirm which you have, and measure the real capacity. Full procedure, tables and battery safety: [`docs/power-management.md`](docs/power-management.md).
 
 ## Assembly
 
+<p align="center"><img src="images/animations/assembly-stages.svg" alt="Animated twelve assembly stages" width="100%"></p>
+
 1 inspect, 2 confirm pinouts, 3 power section, 4 tune the MT3608, 5 ESP32 + PN532, 6 DFPlayer, 7 amplifier + speaker, 8 microSD, 9 program, 10 test tag and audio, 11 verify switch and charging, 12 enclose. Each step has a checkpoint in [`docs/assembly-guide.md`](docs/assembly-guide.md).
 
 ## Testing and troubleshooting
+
+<p align="center"><img src="images/animations/troubleshooting-flow.svg" alt="Animated troubleshooting flow" width="100%"></p>
 
 <details><summary>Troubleshooting summary (full table with multimeter checks in docs)</summary>
 
@@ -298,6 +338,16 @@ Battery to TP4056 B+/B-; OUT+ through the switch to MT3608 VIN+; OUT- to VIN-. T
 </details>
 
 Tests actually performed: PC unit test of the tag parser (11/11 pass); relative-link check; wiring SVG rendered and visually inspected; firmware syntax-checked only against my own stub headers (not the real libraries). **Not performed:** compilation in Arduino IDE, any hardware test. Checklist: [`tests/hardware-validation-checklist.md`](tests/hardware-validation-checklist.md). More: [`docs/testing-and-troubleshooting.md`](docs/testing-and-troubleshooting.md).
+
+## Usability and enclosure
+
+<p align="center"><img src="images/animations/buttons-demo.svg" alt="Animated demonstration of the three buttons" width="100%"></p>
+
+<p align="center"><img src="images/animations/latch-timeline.svg" alt="Animated same-tag latch timeline" width="100%"></p>
+
+<p align="center"><img src="images/animations/enclosure-layout.svg" alt="Animated suggested enclosure layout" width="100%"></p>
+
+Design guidance is in [`docs/accessibility-and-usability.md`](docs/accessibility-and-usability.md) and [`docs/enclosure-and-layout.md`](docs/enclosure-and-layout.md); neither has been tested with users.
 
 ## Limitations and future work
 
