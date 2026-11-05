@@ -3,7 +3,7 @@
 <p align="center"><img src="../images/animations/checklist.svg" alt="Animated validation checklist ticking item by item" width="100%"></p>
 
 
-Fill in on the real build. Blank = not done.
+Fill in on the real build. Blank = not done. The full case list is in [test-plan.md](test-plan.md).
 
 | # | Check | Expected | Measured / result | Date | Initials |
 |---|---|---|---|---|---|
