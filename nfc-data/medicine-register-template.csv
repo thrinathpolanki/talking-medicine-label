@@ -1,0 +1,2 @@
+id,medicine_name_en,medicine_name_te,strength,languages_recorded,audio_en_path,audio_te_path,tag_written_by,audio_reviewed_by,review_date,notes
+1,EXAMPLE - paracetamol,,500 mg,en;te,/01/001.mp3,/02/001.mp3,,,,Example row only. Not medical advice.
